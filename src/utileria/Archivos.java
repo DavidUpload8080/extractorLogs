@@ -39,7 +39,7 @@ public class Archivos {
 		try {
 			PrintWriter salida = new PrintWriter(new FileWriter(archivo));
 
-			// inserto el contenido
+			// inserto el contenido igolgi
 			salida.println(contenido);
 
 			salida.println();
