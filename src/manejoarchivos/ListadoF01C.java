@@ -1,20 +1,26 @@
 package manejoarchivos;
 
 import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.JTextArea;
-import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 
 public class ListadoF01C extends JFrame {
 
@@ -23,7 +29,7 @@ public class ListadoF01C extends JFrame {
 	 */
 	private static final long serialVersionUID = 6546916840195465570L;
 	private JPanel contentPane;
-	private JTextField textField;
+	private static final String NOMBRE_ARCHIVO_F01C = "C:\\Users\\David\\Desktop\\logs\\listado_F01.txt";
 
 	/**
 	 * Launch the application.
@@ -71,63 +77,109 @@ public class ListadoF01C extends JFrame {
 		textArea.setBounds(10, 36, 293, 226);
 		contentPane.add(textArea);
 		
-		textField = new JTextField();
-		textField.setToolTipText("Ruta del Archivo..");
-		textField.setBounds(10, 5, 293, 20);
-		contentPane.add(textField);
-		textField.setColumns(10);
+		//Lleno el textArea con el método leerListado
+		leerListado(NOMBRE_ARCHIVO_F01C, textArea);
+	
 		
-		JButton btnSeleccionar = new JButton("Seleccionar");
-		btnSeleccionar.addMouseListener(new MouseAdapter() {
+		JButton btnNewButton = new JButton("Guardar Cambios\r\n");
+		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent e) {
+			public void mouseClicked(MouseEvent arg0) {
 				
-				//Creamos el objeto JFileChooser
-				JFileChooser fc=new JFileChooser();
 				
-				//Creamos el filtro
-				FileNameExtensionFilter filtroTxt = new FileNameExtensionFilter("*.TXT", "txt");
-				FileNameExtensionFilter filtroLOG = new FileNameExtensionFilter("*.LOG", "log");
+				//actualizo el archivo listado F01C.				
+				cargarListado(NOMBRE_ARCHIVO_F01C , textArea.getText(), textArea);
 				
-				//Le indicamos el filtro
-				fc.setFileFilter(filtroTxt);
-				fc.setFileFilter(filtroLOG);
+									
+			}
+		});
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		btnNewButton.setBounds(313, 110, 119, 55);
+		contentPane.add(btnNewButton);
+		
+		JLabel lblListadoInterfacesFc = new JLabel("Listado Interfaces F01C");
+		lblListadoInterfacesFc.setFont(new Font("Tahoma", Font.BOLD, 12));
+		lblListadoInterfacesFc.setBounds(80, 11, 223, 14);
+		contentPane.add(lblListadoInterfacesFc);
+		
+		
+		
+		
+	}
+	
+	
+	public void leerListado(String nombreArchivo, JTextArea textArea) {
 
-				//Abrimos la ventana, guardamos la opcion seleccionada por el usuario
-				int seleccion=fc.showOpenDialog(contentPane);
+		File archivo = new File(nombreArchivo);
+
+		
+		textArea.setText("");
+		// lectura = entrada.readLine();
+
+		try {
+			
+			BufferedReader entrada;
+			
+			entrada = new BufferedReader(new FileReader(archivo));
+		
+			String lectura = "";
+			
+			while ((lectura = entrada.readLine()) != null) {
 				
-				//Si el usuario, pincha en aceptar
-				if(seleccion==JFileChooser.APPROVE_OPTION){
-				 
-				    //Seleccionamos el fichero
-				    File fichero=fc.getSelectedFile();
-				 
-				    //Ecribe la ruta del fichero seleccionado en el campo de texto
-				    textField.setText(fichero.getAbsolutePath());
-				 
-				    try(FileReader fr=new FileReader(fichero)){
-				        String cadena="";
-				        int valor=fr.read();
-				        while(valor!=-1){
-				            cadena=cadena+(char)valor;
-				            valor=fr.read();
-				        }
-				        textArea.setText(cadena);
-				    } catch (IOException e1) {
-				        e1.printStackTrace();
-				    }
-				}
-				
+				textArea.append(lectura + "\n");	
 				
 				
 			}
-		});
-		btnSeleccionar.setBounds(313, 4, 119, 23);
-		contentPane.add(btnSeleccionar);
 		
-		JButton btnNewButton = new JButton("Cargar\r\n");
-		btnNewButton.setBounds(313, 110, 119, 55);
-		contentPane.add(btnNewButton);
-	}
+			entrada.close();
+			
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		
+	}// fin método.
+	
+	/**
+	 * Método para cargar o modificar el lisado.
+	 * 
+	 * @param String nombreArchivo (Directorio)
+	 * @param String texto
+	 */
+	public void cargarListado(String nombreArchivo, String texto, JTextArea textArea) {
+		
+		
+		try {
+			
+			BufferedWriter bw;
+			bw = new BufferedWriter(new FileWriter(nombreArchivo));
+			bw.write("");
+			bw.close();
+			
+			//abro el archivo y lo defino en true para poder ir apilando cada registro.
+			PrintWriter salida = new PrintWriter(new FileWriter(nombreArchivo, false));
 
+			salida.println(texto);
+			salida.close(); 			
+			
+			JOptionPane.showMessageDialog(null, "Listado Modificado Exitosamente.");
+			
+			//lleno el textArea con los nuevos registros.
+			leerListado(nombreArchivo, textArea);
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
+	
+	
+	
 }

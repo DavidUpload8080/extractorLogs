@@ -115,7 +115,7 @@ public class MenuPrincipal {
 			public void actionPerformed(ActionEvent e) {
 				
 				
-				setVisible(false);
+				menuPrincipal.setVisible(false);
 				
 				ListadoF01C listF01C = new ListadoF01C();
 				listF01C.setVisible(true);
