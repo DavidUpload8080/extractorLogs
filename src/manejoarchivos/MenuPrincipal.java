@@ -58,7 +58,7 @@ public class MenuPrincipal {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
-				JOptionPane.showInputDialog(null, "Indique fecha de proceso");
+				
 				GenerarLog generarLog = new GenerarLog();
 				generarLog.setVisible(true);
 				menuPrincipal.setVisible(false);

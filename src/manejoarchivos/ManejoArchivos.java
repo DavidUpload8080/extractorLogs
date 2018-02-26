@@ -5,7 +5,6 @@ import static utileria.Archivos.leerArchivoPesado;
 
 import java.io.BufferedWriter;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,10 +14,12 @@ import java.util.Scanner;
 public class ManejoArchivos {
 
 //	private static final String NOMBRE_ARCHIVO = "/home/david/Escritorio/logs/logejemplo2.txt";
-	private static  String DIR_ARCHIVOS_ORIGEN = "C:\\Users\\David\\Desktop\\logs\\ERR_OP07171127.TCL.LOG";
-	private static  String DIR_ARCHIVOS_ORIGEN2 = "C:\\Users\\David\\Desktop\\logs";
-	private static final String NOM_ARCHIVO_LISTADO = "C:\\Users\\David\\Desktop\\logs\\listado_F01.txt";
-	private static final String NOMBRE_ARCHIVO_DESTINO = "C:\\Users\\David\\Desktop\\logs\\contenedorlogs.txt";
+	//private static  String DIR_ARCHIVOS_ORIGEN = "C:\\Users\\David\\Desktop\\logs\\ERR_OP07171127.TCL.LOG";
+	private static  String DIR_ARCHIVOS_ORIGEN = "C:\\Users\\David\\Desktop\\logs";
+	private static final String DIR_ARCHIVO_LISTADO_F01C = "C:\\Users\\David\\Desktop\\logs\\listado_F01.txt";
+	private static final String DIR_ARCHIVO_DESTINO_LOGS = "C:\\Users\\David\\Desktop\\logs\\contenedorlogs.txt";
+	private static String FECHA_PROCESO	= "";
+	
 	public static void main(String[] args) {
 		
 		//crear un archivo
@@ -34,27 +35,27 @@ public class ManejoArchivos {
 		Scanner sc = null;
 		try {
 			
-			inputListado = new FileInputStream(NOM_ARCHIVO_LISTADO);
+			inputListado = new FileInputStream(DIR_ARCHIVO_LISTADO_F01C);
 			
 			List<String> listado = new ArrayList<String>();
 			
 			sc = new Scanner(inputListado, "UTF-8");
 			
 			BufferedWriter bw;
-			bw = new BufferedWriter(new FileWriter(NOMBRE_ARCHIVO_DESTINO));
+			bw = new BufferedWriter(new FileWriter(DIR_ARCHIVO_DESTINO_LOGS));
 			bw.write("");
 			bw.close();
 			
 			while (sc.hasNextLine()) {
 				
 				String interfaz = sc.nextLine();
-				String directorio =  DIR_ARCHIVOS_ORIGEN2 + "\\ERR_" + interfaz +"180213"+".TCL.LOG";
+				String directorio =  DIR_ARCHIVOS_ORIGEN + "\\ERR_" + interfaz + FECHA_PROCESO +".TCL.LOG";
 				//listado.add(archivoOrigen);
 				System.out.println(directorio);
-				System.out.println(DIR_ARCHIVOS_ORIGEN);
+				//System.out.println(DIR_ARCHIVOS_ORIGEN);
 						
 					//ejecuto el método para llenar el contenedor de logs.
-					leerArchivoPesado(directorio, interfaz);
+					leerArchivoPesado(directorio, interfaz, DIR_ARCHIVO_DESTINO_LOGS);
 			
 			}// fin while
 			

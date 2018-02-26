@@ -1,5 +1,7 @@
 package utileria;
 
+import static utileria.Archivos.leerArchivoPesado;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -105,7 +107,7 @@ public class Archivos {
 
 	}
 
-	public static void leerArchivoPesado(String nombreArchivo, String interfaz) throws FileNotFoundException {
+	public static void leerArchivoPesado(String nombreArchivo, String interfaz, String NOMBRE_ARCHIVO_DESTINO) throws FileNotFoundException {
 
 		FileInputStream inputStream = null;
 		Scanner sc = null;
@@ -207,5 +209,47 @@ public class Archivos {
 		}
 
 	}
+	
+	public static void extraerLogs(String DIR_ARCHIVO_LISTADO, String DIR_ARCHIVO_DESTINO_LOGS,
+			String DIR_ARCHIVOS_ORIGEN, String FECHA_PROCESO) {
+		
+		FileInputStream inputListado = null; 
+		Scanner sc = null;
+		try {
+			
+			inputListado = new FileInputStream(DIR_ARCHIVO_LISTADO);
+			
+			List<String> listado = new ArrayList<String>();
+			
+			sc = new Scanner(inputListado, "UTF-8");
+			
+			BufferedWriter bw;
+			bw = new BufferedWriter(new FileWriter(DIR_ARCHIVO_DESTINO_LOGS));
+			bw.write("");
+			bw.close();
+			
+			while (sc.hasNextLine()) {
+				
+				String interfaz = sc.nextLine();
+				String directorio =  DIR_ARCHIVOS_ORIGEN + "\\ERR_" + interfaz + FECHA_PROCESO +".TCL.LOG";
+				//listado.add(archivoOrigen);
+				System.out.println(directorio);
+				//System.out.println(DIR_ARCHIVOS_ORIGEN);
+						
+					//ejecuto el método para llenar el contenedor de logs.
+					leerArchivoPesado(directorio, interfaz, DIR_ARCHIVO_DESTINO_LOGS);
+			
+			}// fin while
+			
+			
+			
+		} catch (IOException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+	}
+	
 
 }

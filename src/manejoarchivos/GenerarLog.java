@@ -6,10 +6,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -54,13 +56,7 @@ public class GenerarLog extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JButton btnNewButton = new JButton("Extraer Registros LOG");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
-		btnNewButton.setBounds(97, 104, 232, 23);
-		contentPane.add(btnNewButton);
+	
 		
 		JLabel lblFechaDeProceso = new JLabel("Seleccionar Fecha de Proceso: ");
 		lblFechaDeProceso.setFont(new Font("Tahoma", Font.BOLD, 12));
@@ -70,6 +66,22 @@ public class GenerarLog extends JFrame {
 		JDateChooser dateChooser = new JDateChooser();
 		dateChooser.setBounds(266, 54, 95, 20);
 		contentPane.add(dateChooser);
+		
+		JButton btnNewButton = new JButton("Extraer Registros LOG");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				dateChooser.getDate();
+		        SimpleDateFormat formateador = new SimpleDateFormat("yyMMdd");
+		        			
+				JOptionPane.showMessageDialog(null, formateador.format(dateChooser.getDate()));
+			}
+		});
+		
+		btnNewButton.setBounds(97, 104, 232, 23);
+		contentPane.add(btnNewButton);
+		
 		
 		JButton btnVolverAlMen = new JButton("Volver al Men\u00FA Principal");
 		btnVolverAlMen.addMouseListener(new MouseAdapter() {

@@ -55,7 +55,7 @@ public class ListadoF01C extends JFrame {
 		setTitle("Carga de Listado Reporte F01C");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 468, 300);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -97,7 +97,7 @@ public class ListadoF01C extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		btnNewButton.setBounds(313, 110, 119, 55);
+		btnNewButton.setBounds(313, 110, 137, 55);
 		contentPane.add(btnNewButton);
 		
 		JLabel lblListadoInterfacesFc = new JLabel("Listado Interfaces F01C");
