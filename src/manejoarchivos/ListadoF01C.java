@@ -29,7 +29,7 @@ public class ListadoF01C extends JFrame {
 	 */
 	private static final long serialVersionUID = 6546916840195465570L;
 	private JPanel contentPane;
-	private static final String NOMBRE_ARCHIVO_F01C = "C:\\Users\\David\\Desktop\\logs\\listado_F01.txt";
+	private static final String NOMBRE_ARCHIVO_F01C = "C:\\Users\\David\\Desktop\\logs\\listados_interfaces\\listado_F01.txt";
 
 	/**
 	 * Launch the application.
@@ -104,8 +104,6 @@ public class ListadoF01C extends JFrame {
 		lblListadoInterfacesFc.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblListadoInterfacesFc.setBounds(80, 11, 223, 14);
 		contentPane.add(lblListadoInterfacesFc);
-		
-		
 		
 		
 	}
