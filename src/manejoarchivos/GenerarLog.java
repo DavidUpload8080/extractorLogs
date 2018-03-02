@@ -26,6 +26,7 @@ public class GenerarLog extends JFrame {
 	 */
 	private static final long serialVersionUID = 4854844716897693007L;
 	private JPanel contentPane;
+	private JDateChooser dateChooser;
 
 	/**
 	 * Launch the application.
@@ -65,7 +66,7 @@ public class GenerarLog extends JFrame {
 		lblFechaDeProceso.setBounds(66, 54, 190, 20);
 		contentPane.add(lblFechaDeProceso);
 		
-		JDateChooser dateChooser = new JDateChooser();
+		dateChooser = new JDateChooser();
 		dateChooser.setBounds(266, 54, 95, 20);
 		contentPane.add(dateChooser);
 		

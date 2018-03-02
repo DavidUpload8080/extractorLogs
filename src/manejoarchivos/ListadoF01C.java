@@ -30,7 +30,7 @@ public class ListadoF01C extends JFrame {
 	private static final long serialVersionUID = 6546916840195465570L;
 	private JPanel contentPane;
 	private static final String NOMBRE_ARCHIVO_F01C = "C:\\Users\\David\\Desktop\\logs\\listados_interfaces\\listado_F01.txt";
-
+	private JTextArea textArea;
 	/**
 	 * Launch the application.
 	 */
@@ -73,7 +73,7 @@ public class ListadoF01C extends JFrame {
 		btnVolver.setBounds(313, 239, 119, 23);
 		contentPane.add(btnVolver);
 		
-		JTextArea textArea = new JTextArea();
+		textArea = new JTextArea();
 		textArea.setBounds(10, 36, 293, 226);
 		contentPane.add(textArea);
 		
