@@ -95,6 +95,13 @@ public class MenuPrincipal {
 		mnArchivo.add(mnDirectorioDestino);
 		
 		JMenuItem mntmProcesoDiario = new JMenuItem("Proceso Diario");
+		mntmProcesoDiario.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				ConfigSwingDemo config = new ConfigSwingDemo();
+				
+			}
+		});
 		mnDirectorioDestino.add(mntmProcesoDiario);
 		
 		JMenuItem mntmProcesoMensual = new JMenuItem("Proceso Mensual");
@@ -116,8 +123,16 @@ public class MenuPrincipal {
 				
 				menuPrincipal.setVisible(false);
 				
-				ListadoF01C listF01C = new ListadoF01C();
-				listF01C.setVisible(true);
+				ListadoF01C listF01C;
+				try {
+					listF01C = new ListadoF01C();
+					
+					listF01C.setVisible(true);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
 				
 			}
 		});

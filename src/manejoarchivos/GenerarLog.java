@@ -18,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 import com.toedter.calendar.JDateChooser;
 
 import utileria.Archivos;
+import utileria.Propiedades;
 
 public class GenerarLog extends JFrame {
 
@@ -81,18 +82,30 @@ public class GenerarLog extends JFrame {
 		        //Obtener los directorios de los archivos.
 		        
 		        
+		        
 				String fecha_proceso = formateador.format(dateChooser.getDate());
-				String listadoF01C = "C:\\Users\\David\\Desktop\\logs\\listados_interfaces\\listado_F01.txt";
-				String destinoLogs = "C:\\Users\\David\\Desktop\\logs\\contenedorlogsF01C.txt";
-				String dir_archivos_origen = "C:\\Users\\David\\Desktop\\logs\\archivoslog";
+				
+				try {
+					String listadoF01C = Propiedades.showProperties("dir.archivo.listado.f01c");
+					String destinoLogs = Propiedades.showProperties("dir.destino.logs.f01c");
+					String dir_archivos_origen = Propiedades.showProperties("dir.archivo.origen.logs");
+				
+					
+					JOptionPane.showMessageDialog(null, fecha_proceso);
+					
+					Archivos.extraerLogs(listadoF01C, 
+										destinoLogs, 
+										dir_archivos_origen, 
+								        fecha_proceso);
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			
 				
 				
-				JOptionPane.showMessageDialog(null, fecha_proceso);
-				
-				Archivos.extraerLogs(listadoF01C, 
-									destinoLogs, 
-									dir_archivos_origen, 
-							        fecha_proceso);
+			
 			}
 		});
 		

@@ -1,5 +1,4 @@
 package utileria;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -13,13 +12,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Archivos {
 
+public class Archivos {
 	
 //	private static final String NOMBRE_ARCHIVO_DESTINO = "C:\\Users\\David\\Desktop\\logs\\contenedorlogs.txt";
 //	private static  final String DIR_ARCHIVOS_ORIGEN = "C:\\Users\\David\\Desktop\\logs\\ERR_CL01171127.TCL.LOG";
-	public static void crearArchivo(String nombreArchivo) {
 
+	
+	
+	
+	
+	public static void crearArchivo(String nombreArchivo) {
+		
+		
+		
 		File archivo = new File(nombreArchivo);
 
 		try {
@@ -269,6 +275,8 @@ public class Archivos {
 		
 		
 	}
+	
+	
 	
 
 }

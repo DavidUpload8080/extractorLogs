@@ -22,6 +22,8 @@ import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
+import utileria.Propiedades;
+
 public class ListadoF01C extends JFrame {
 
 	/**
@@ -50,8 +52,9 @@ public class ListadoF01C extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws Exception 
 	 */
-	public ListadoF01C() {
+	public ListadoF01C() throws Exception {
 		setTitle("Carga de Listado Reporte F01C");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -78,7 +81,8 @@ public class ListadoF01C extends JFrame {
 		contentPane.add(textArea);
 		
 		//Lleno el textArea con el método leerListado
-		leerListado(NOMBRE_ARCHIVO_F01C, textArea);
+		String nombre_archivo_f01c = Propiedades.showProperties("dir.archivo.listado.f01c");
+		leerListado(nombre_archivo_f01c, textArea);
 	
 		
 		JButton btnNewButton = new JButton("Guardar Cambios\r\n");
@@ -86,9 +90,17 @@ public class ListadoF01C extends JFrame {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
+				try {
+					String nombre_archivo_f01c = Propiedades.showProperties("dir.archivo.listado.f01c");
+					
+					//actualizo el archivo listado F01C.				
+					cargarListado(nombre_archivo_f01c , textArea.getText(), textArea);
+					
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
-				//actualizo el archivo listado F01C.				
-				cargarListado(NOMBRE_ARCHIVO_F01C , textArea.getText(), textArea);
 				
 									
 			}
@@ -112,7 +124,7 @@ public class ListadoF01C extends JFrame {
 	public void leerListado(String nombreArchivo, JTextArea textArea) {
 
 		File archivo = new File(nombreArchivo);
-
+		
 		
 		textArea.setText("");
 		// lectura = entrada.readLine();
