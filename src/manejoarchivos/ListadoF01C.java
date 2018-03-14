@@ -9,9 +9,12 @@ import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
 import javax.swing.JButton;
@@ -82,6 +85,7 @@ public class ListadoF01C extends JFrame {
 		
 		//Lleno el textArea con el método leerListado
 		String nombre_archivo_f01c = Propiedades.showProperties("dir.archivo.listado.f01c");
+		System.out.println("listado: " + nombre_archivo_f01c);  
 		leerListado(nombre_archivo_f01c, textArea);
 	
 		
@@ -123,7 +127,7 @@ public class ListadoF01C extends JFrame {
 	
 	public void leerListado(String nombreArchivo, JTextArea textArea) {
 
-		File archivo = new File(nombreArchivo);
+		//File archivo = new File(nombreArchivo);
 		
 		
 		textArea.setText("");
@@ -132,10 +136,19 @@ public class ListadoF01C extends JFrame {
 		try {
 			
 			BufferedReader entrada;
-			
-			entrada = new BufferedReader(new FileReader(archivo));
+			System.out.println(nombreArchivo);
+			//HAY QUE OCUPAR EL getResourceAsStream para llamar .txt dentro del jar
+			//entrada = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(nombreArchivo)));
 		
+			
+			InputStream inputStream = new FileInputStream(nombreArchivo);
+			
+		//	entrada = new BufferedReader(new InputStreamReader(inputStream));
+			entrada = new BufferedReader(new InputStreamReader(new FileInputStream(nombreArchivo)));
+
 			String lectura = "";
+			
+			
 			
 			while ((lectura = entrada.readLine()) != null) {
 				

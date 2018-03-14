@@ -84,17 +84,21 @@ public class GenerarLog extends JFrame {
 		        
 		        
 				String fecha_proceso = formateador.format(dateChooser.getDate());
-				
+				//dir.destino.logs.f01c=C\:\\LOGS\\LOGS_F01C\\LOGS_F01C
+			    //dir.nombre.archivo.f01c=contenedorlogsF01C.txt
 				try {
 					String listadoF01C = Propiedades.showProperties("dir.archivo.listado.f01c");
-					String destinoLogs = Propiedades.showProperties("dir.destino.logs.f01c");
+					String ruta_destino_logs = Propiedades.showProperties("dir.destino.logs.f01c");
+					String nombre_archivoF01C = Propiedades.showProperties("dir.nombre.archivo.f01c");
 					String dir_archivos_origen = Propiedades.showProperties("dir.archivo.origen.logs");
-				
+				//concatenar destinoLogs + archivoF01C
 					
+					String ruta_archivo_f01c = null;
+					ruta_archivo_f01c = ruta_destino_logs + "\\" + nombre_archivoF01C;
 					JOptionPane.showMessageDialog(null, fecha_proceso);
 					
 					Archivos.extraerLogs(listadoF01C, 
-										destinoLogs, 
+							ruta_archivo_f01c, 
 										dir_archivos_origen, 
 								        fecha_proceso);
 					

@@ -13,16 +13,18 @@ public class Ejemplo {
 		String m = null;
 	
 		try {
-			m = Propiedades.showProperties("dir.destino.logs.f01c");
+			
+			
+			m = Propiedades.showProperties("dir.archivo.listado.f01c");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
-		System.out.println(m);
+		System.out.println("Propiedad: " + m);
 		
 		//creo los directorios en rutas.propiedades.
-		Propiedades.setDirectorios();
+		//Propiedades.setDirectorios();
 	}
 	
 }

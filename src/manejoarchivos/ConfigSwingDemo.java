@@ -102,8 +102,8 @@ public class ConfigSwingDemo extends JFrame {
 	private void loadProperties() throws IOException {
 		Properties defaultProps = new Properties();
 		// sets default properties
-		defaultProps.setProperty("dir.archivo.origen.logs", "www.codejava.net");
-		defaultProps.setProperty("dir.destino.logs.f01c", "3306");
+		//defaultProps.setProperty("dir.archivo.origen.logs", "www.codejava.net");
+		//defaultProps.setProperty("dir.destino.logs.f01c", "");
 		
 		configProps = new Properties(defaultProps);
 		
@@ -114,8 +114,9 @@ public class ConfigSwingDemo extends JFrame {
 	}
 	
 	private void saveProperties() throws IOException {
+		
 		configProps.setProperty("dir.archivo.origen.logs", textHost.getText());
-		//configProps.setProperty("dir.destino.logs.f01c", textPort.getText());
+		configProps.setProperty("dir.destino.logs.f01c", textPort.getText());
 		
 		OutputStream outputStream = new FileOutputStream(configFile);
 		configProps.store(outputStream, "host setttings");
@@ -134,37 +135,50 @@ public class ConfigSwingDemo extends JFrame {
 	 */
 	public void createDirectories(String ruta_destinoF01C) throws IOException {
 		
-		String nom_archivo_f01c = "/contenedorlogsF01C.txt";
-		String nom_carpeta = "/LOGS_F01C";
+		String nom_archivo_f01c = null;
+		String nom_carpeta = null;
+		
+		System.out.println(ruta_destinoF01C);
+		nom_archivo_f01c = "\\contenedorlogsF01C.txt";
+		nom_carpeta = "\\LOGS_F01C";
        
 		//CREO EL DIRECTORIO
-		File archivo_destino_f01c = new File(ruta_destinoF01C + nom_carpeta);
-
-		//si no existe el directorio que lo cree.
-		if(!archivo_destino_f01c.exists()) {
-			archivo_destino_f01c.mkdirs();
-			}
+		System.out.println("ruta archivo: " + ruta_destinoF01C + nom_carpeta);
+		File destino_f01c = new File(ruta_destinoF01C + nom_carpeta);
 		
+		//ARCHIVO F01C
+		File archivo_destino_f01c = new File(ruta_destinoF01C + nom_carpeta + nom_archivo_f01c);
+		
+		//si no existe el directorio que lo cree.
+		if(!destino_f01c.exists()) {
+			destino_f01c.mkdirs();
+			}
 		
 		
         BufferedWriter bw2;
         //si no existe creo el archivo.
         if(!archivo_destino_f01c.exists()) {
-           
-            bw2 = new BufferedWriter(new FileWriter(archivo_destino_f01c + nom_archivo_f01c));
+        	
+           	System.out.println(ruta_destinoF01C + nom_carpeta + nom_archivo_f01c);
+            bw2 = new BufferedWriter(new FileWriter(ruta_destinoF01C + nom_carpeta + nom_archivo_f01c));
            // bw.write("El directorio y archivo .txt, ya estaba creado.");
             bw2.close();
         }
-        
-        
-        
+           
         //modifico el directorio donde está el log destino f01c
-        configProps.setProperty("dir.destino.logs.f01c", archivo_destino_f01c + nom_archivo_f01c);
+        //configProps.setProperty("dir.destino.logs.f01c", archivo_destino_f01c + nom_archivo_f01c);
+       
+		System.out.println("Contenido Propiedad: " + configProps.getProperty("dir.destino.logs.f01c"));
+		System.out.println(destino_f01c );
+		System.out.println(nom_archivo_f01c);
+		System.out.println("concatenado " + destino_f01c  );
+		configProps.setProperty("dir.destino.logs.f01c", ruta_destinoF01C + nom_carpeta);
+		OutputStream outputStream1 = new FileOutputStream(configFile);
+		configProps.store(outputStream1, "logs destino setttings");
 		
-		OutputStream outputStream = new FileOutputStream(configFile);
-		configProps.store(outputStream, "logs destino setttings");
-		outputStream.close();
-    
+		System.out.println("Contenido Propiedad: " + configProps.getProperty("dir.destino.logs.f01c"));
+		outputStream1.close();
+		
 		
 	}
 

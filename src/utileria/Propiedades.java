@@ -1,5 +1,7 @@
 package utileria;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,18 +12,20 @@ public class Propiedades {
 
 	
 	private static final String destino_logs = "dir.destino.logs.f01c";
-	private static String configFilePath = "/rutas.properties";
+	//private static String configFilePath = "/rutas.properties";
+	public static File configFile = new File("rutas.properties");
+	public static  Properties configProps;
+	
 //	public static  = null;
 	public Propiedades() {}
 	
 	
 	public static String showProperties(String clave) throws Exception {
-	   Properties p = new Properties();
-	   InputStream is = Propiedades.class.getResourceAsStream("/rutas.properties");
-	   p.load(is);
-	   is.close();
-	 
-	   String valor = p.getProperty(clave);
+	
+	  
+	   
+	   
+	   String valor =  loadProperties().getProperty(clave);
 	   
 	   
 	 
@@ -29,6 +33,23 @@ public class Propiedades {
 	  
 	   return valor;
 	}
+	
+	public static Properties loadProperties() throws IOException {
+		Properties defaultProps = new Properties();
+		// sets default properties
+		//defaultProps.setProperty("dir.archivo.origen.logs", "www.codejava.net");
+		//defaultProps.setProperty("dir.destino.logs.f01c", "");
+		
+		configProps = new Properties(defaultProps);
+		
+		// loads properties from file
+		InputStream inputStream = new FileInputStream(configFile);
+		configProps.load(inputStream);
+		inputStream.close();
+		
+		return configProps;
+	}
+	
 
 	public static String getUnidadDisco() {
 		
