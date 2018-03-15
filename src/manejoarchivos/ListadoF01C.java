@@ -141,7 +141,7 @@ public class ListadoF01C extends JFrame {
 			//entrada = new BufferedReader(new InputStreamReader(getClass().getResourceAsStream(nombreArchivo)));
 		
 			
-			InputStream inputStream = new FileInputStream(nombreArchivo);
+		//	InputStream inputStream = new FileInputStream(nombreArchivo);
 			
 		//	entrada = new BufferedReader(new InputStreamReader(inputStream));
 			entrada = new BufferedReader(new InputStreamReader(new FileInputStream(nombreArchivo)));

@@ -9,11 +9,13 @@ import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileSystemView;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -94,7 +96,7 @@ public class GenerarLog extends JFrame {
 				//concatenar destinoLogs + archivoF01C
 					
 					String ruta_archivo_f01c = null;
-					ruta_archivo_f01c = ruta_destino_logs + "\\" + nombre_archivoF01C;
+					ruta_archivo_f01c = ruta_destino_logs;
 					JOptionPane.showMessageDialog(null, fecha_proceso);
 					
 					Archivos.extraerLogs(listadoF01C, 
@@ -142,5 +144,23 @@ public class GenerarLog extends JFrame {
 		});
 		btnVolverAlMen.setBounds(192, 228, 232, 23);
 		contentPane.add(btnVolverAlMen);
+		
+		final JButton btnJchooser = new JButton("JCHOOSER");
+		btnJchooser.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				
+				JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
+				jfc.setDialogTitle("Select an image");
+				jfc.setAcceptAllFileFilterUsed(false);			
+				jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+				int returnValue = jfc.showSaveDialog(jfc);
+				if (returnValue == JFileChooser.APPROVE_OPTION) {
+					System.out.println(jfc.getSelectedFile().getPath());
+				}
+			}
+		});
+		btnJchooser.setBounds(333, 104, 91, 23);
+		contentPane.add(btnJchooser);
 	}
 }

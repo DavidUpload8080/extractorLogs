@@ -47,6 +47,7 @@ public class MenuPrincipal {
 	 */
 	private void initialize() {
 		menuPrincipal = new JFrame();
+		menuPrincipal.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		menuPrincipal.getContentPane().setLayout(null);
 		menuPrincipal.setSize(400, 300);
 		menuPrincipal.setLocationRelativeTo(null);
@@ -98,7 +99,9 @@ public class MenuPrincipal {
 		mntmProcesoDiario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
-				ConfigSwingDemo config = new ConfigSwingDemo();
+				ModificarRutas config = new ModificarRutas();
+				config.setVisible(true);
+				menuPrincipal.setVisible(false);
 				
 			}
 		});

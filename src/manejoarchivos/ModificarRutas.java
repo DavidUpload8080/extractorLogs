@@ -1,15 +1,21 @@
 package manejoarchivos;
 
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
 
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileSystemView;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
-import java.awt.FlowLayout;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.Insets;
-import java.awt.event.ActionEvent;
+import java.awt.Font;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -19,129 +25,123 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
+import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.filechooser.FileSystemView;
+public class ModificarRutas extends JFrame {
 
-
-/**
- * This program demonstrates using java.util.Properties class to read and write
- * settings for Java application.
- * @author www.codejava.net
- *
- */
-public class ConfigSwingDemo extends JFrame {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5337009801050296613L;
 	private File configFile = new File("rutas.properties");
 	private Properties configProps;
-	private JButton btnOrigenLogs = new JButton("Origen Logs");
-	private JButton btnDestinoLogs = new JButton("Destino Logs");
-	private JLabel labelHost = new JLabel("Origen LOGS: ");
-	
+	private JPanel contentPane;
+	private JTextField textHost;
+	private JTextField textPort;
 
-	private JLabel labelPort = new JLabel("Destino Reportes Logs: ");
-	
-	private JTextField textHost = new JTextField(20);
-	private JTextField textPort = new JTextField(20);
-	
-	private JButton buttonSave = new JButton("Save");
-	
-	public ConfigSwingDemo() {
-		super("Properties Configuration Demo");
-		setLayout(new GridBagLayout());
-		GridBagConstraints constraints = new GridBagConstraints();
-		constraints.gridx = 0;
-		constraints.gridy = 0;
-		constraints.insets = new Insets(10, 10, 5, 10);
-		constraints.anchor = GridBagConstraints.WEST;
-		
-		
-		add(labelHost, constraints);
-		
-		constraints.gridx = 1;
-		add(textHost, constraints);
-		
-		constraints.gridy = 1;
-		constraints.gridx = 0;
-		add(labelPort, constraints);
-		
-		constraints.gridx = 1;
-		add(textPort, constraints);
-
-				
-		constraints.gridy = 4;
-		constraints.gridx = 0;
-		constraints.gridwidth = 2;
-		constraints.anchor = GridBagConstraints.CENTER;
-		add(buttonSave, constraints);
-		
-		buttonSave.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
 				try {
-					saveProperties();
-					JOptionPane.showMessageDialog(ConfigSwingDemo.this, 
-							"!Directorios grabados Exitosamente!");		
-				} catch (IOException ex) {
-					JOptionPane.showMessageDialog(ConfigSwingDemo.this, 
-							"Error guardando los directorios: " + ex.getMessage());		
+					ModificarRutas frame = new ModificarRutas();
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 		});
+	}
+
+	/**
+	 * Create the frame.
+	 */
+	public ModificarRutas() {
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 522, 218);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
+		JLabel lblNewLabel = new JLabel("Origen LOGS: ");
+		lblNewLabel.setBounds(36, 50, 91, 24);
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 12));
+		contentPane.add(lblNewLabel);
 		
+		JLabel lblDestinoLogs = new JLabel("Destino LOGS:");
+		lblDestinoLogs.setBounds(36, 101, 91, 24);
+		lblDestinoLogs.setFont(new Font("Arial", Font.BOLD, 12));
+		contentPane.add(lblDestinoLogs);
 		
+		textHost = new JTextField();
+		textHost.setBounds(137, 53, 187, 20);
+		contentPane.add(textHost);
+		textHost.setColumns(10);
+		
+		textPort = new JTextField();
+		textPort.setBounds(137, 104, 187, 20);
+		contentPane.add(textPort);
+		textPort.setColumns(10);
+		
+		JLabel lblDirectoriosDelSistema = new JLabel("Directorios del Sistema");
+		lblDirectoriosDelSistema.setFont(new Font("Arial", Font.BOLD, 14));
+		lblDirectoriosDelSistema.setBounds(137, 11, 163, 18);
+		contentPane.add(lblDirectoriosDelSistema);
+		
+		JButton btnOrigenLogs = new JButton("Origen Logs");
 		btnOrigenLogs.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				
 				JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-				jfc.setDialogTitle("Select an image");
+				jfc.setDialogTitle("Selecciona el directorio de Origen de LOGS");
 				jfc.setAcceptAllFileFilterUsed(false);			
 				jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				int returnValue = jfc.showSaveDialog(jfc);
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 					System.out.println(jfc.getSelectedFile().getPath());
+					textHost.setText(jfc.getSelectedFile().getPath());
 				}
+				
+				
 			}
 		});
+		btnOrigenLogs.setBounds(341, 52, 134, 23);
+		contentPane.add(btnOrigenLogs);
 		
+		JButton btnDestinoLogs = new JButton("Destino Logs");
 		btnDestinoLogs.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseClicked(MouseEvent arg0) {
+			public void mouseClicked(MouseEvent e) {
 				
 				JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-				jfc.setDialogTitle("Select an image");
+				jfc.setDialogTitle("Selecciona el directorio de destino de los LOG");
 				jfc.setAcceptAllFileFilterUsed(false);			
 				jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 				int returnValue = jfc.showSaveDialog(jfc);
 				if (returnValue == JFileChooser.APPROVE_OPTION) {
 					System.out.println(jfc.getSelectedFile().getPath());
+					textPort.setText(jfc.getSelectedFile().getPath());
 				}
 			}
 		});
+		btnDestinoLogs.setBounds(341, 103, 134, 23);
+		contentPane.add(btnDestinoLogs);
 		
-	
-	
-		//setLayout(new FlowLayout());
-		btnOrigenLogs.setBounds(22, 54, 91, 23);
-		add(btnOrigenLogs);
-		btnDestinoLogs.setBounds(44, 104, 91, 23);
-		add(btnDestinoLogs);
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		pack();
-		setLocationRelativeTo(null);
-		setVisible(true);
+		JButton buttonSave = new JButton("Guardar");
+		buttonSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					saveProperties();
+					JOptionPane.showMessageDialog(ModificarRutas.this, 
+							"!Directorios grabados Exitosamente!");		
+				} catch (IOException ex) {
+					JOptionPane.showMessageDialog(ModificarRutas.this, 
+							"Error guardando los directorios: " + ex.getMessage());		
+				}
+			}
+		});
 		
 		try {
 			loadProperties();
@@ -150,6 +150,28 @@ public class ConfigSwingDemo extends JFrame {
 		}
 		textHost.setText(configProps.getProperty("dir.archivo.origen.logs"));
 		textPort.setText(configProps.getProperty("dir.destino.logs"));
+		
+		
+		
+		buttonSave.setBounds(178, 157, 91, 23);
+		contentPane.add(buttonSave);
+		
+		JButton btnVolver = new JButton("Volver");
+		btnVolver.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				MenuPrincipal menu = new MenuPrincipal();
+				menu.setVisible(true);
+//				GenerarLog frame = new GenerarLog();
+				
+				setVisible(false);
+			}
+		});
+		btnVolver.setBounds(346, 157, 91, 23);
+		contentPane.add(btnVolver);
+		
+		
 		
 	}
 
@@ -238,14 +260,5 @@ public class ConfigSwingDemo extends JFrame {
 		
 		
 	}
-
 	
-	public static void main(String[] args) {
-		SwingUtilities.invokeLater(new Runnable() {
-			@Override
-			public void run() {
-				new ConfigSwingDemo();
-			}
-		});
-	}
 }
