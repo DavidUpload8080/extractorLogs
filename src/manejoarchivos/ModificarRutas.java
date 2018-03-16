@@ -58,12 +58,12 @@ public class ModificarRutas extends JFrame {
 	 */
 	public ModificarRutas() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 522, 218);
+		setBounds(100, 100, 611, 218);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+		setLocationRelativeTo(null);
 		JLabel lblNewLabel = new JLabel("Origen LOGS: ");
 		lblNewLabel.setBounds(36, 50, 91, 24);
 		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 12));
@@ -75,12 +75,12 @@ public class ModificarRutas extends JFrame {
 		contentPane.add(lblDestinoLogs);
 		
 		textHost = new JTextField();
-		textHost.setBounds(137, 53, 187, 20);
+		textHost.setBounds(137, 53, 285, 20);
 		contentPane.add(textHost);
 		textHost.setColumns(10);
 		
 		textPort = new JTextField();
-		textPort.setBounds(137, 104, 187, 20);
+		textPort.setBounds(137, 104, 285, 20);
 		contentPane.add(textPort);
 		textPort.setColumns(10);
 		
@@ -107,7 +107,7 @@ public class ModificarRutas extends JFrame {
 				
 			}
 		});
-		btnOrigenLogs.setBounds(341, 52, 134, 23);
+		btnOrigenLogs.setBounds(445, 52, 134, 23);
 		contentPane.add(btnOrigenLogs);
 		
 		JButton btnDestinoLogs = new JButton("Destino Logs");
@@ -126,7 +126,7 @@ public class ModificarRutas extends JFrame {
 				}
 			}
 		});
-		btnDestinoLogs.setBounds(341, 103, 134, 23);
+		btnDestinoLogs.setBounds(445, 103, 134, 23);
 		contentPane.add(btnDestinoLogs);
 		
 		JButton buttonSave = new JButton("Guardar");
@@ -211,36 +211,42 @@ public class ModificarRutas extends JFrame {
 	 */
 	public void createDirectories(String ruta_destinoF01C) throws IOException {
 		
+		
+		
 		String nom_archivo_f01c = null;
 		String nom_carpeta = null;
 		
 		System.out.println(ruta_destinoF01C);
+		
 		nom_archivo_f01c = "\\contenedorlogsF01C.txt";
 		nom_carpeta = "\\LOGS_F01C";
 		String destino = ruta_destinoF01C + "\\ContenedorLogSIGIR"+ nom_carpeta;
 		String archivo = ruta_destinoF01C +"\\ContenedorLogSIGIR"+ nom_carpeta + nom_archivo_f01c;
+		
 		//CREO EL DIRECTORIO
 		System.out.println("ruta archivo: " + ruta_destinoF01C + "\\ContenedorLogSIGIR"+ nom_carpeta);
+		
 		File destino_f01c = new File(destino);
 		
-		//String archivo = ruta_destinoF01C +"\\ContenedorLogSIGIR"+ nom_carpeta + nom_archivo_f01c;
+		
 		//ARCHIVO F01C
 		File archivo_destino_f01c = new File(archivo);
 		
 		//si no existe el directorio que lo cree.
 		if(!destino_f01c.exists()) {
 			destino_f01c.mkdirs();
-			}
-		
-		
-        BufferedWriter bw2;
-        //si no existe creo el archivo.
+		}
+        
+		BufferedWriter bw2;
+
+		//si no existe creo el archivo.
         if(!archivo_destino_f01c.exists()) {
         	
            	System.out.println(archivo);
             bw2 = new BufferedWriter(new FileWriter(archivo));
            // bw.write("El directorio y archivo .txt, ya estaba creado.");
             bw2.close();
+            
         }
            
         //modifico el directorio donde está el log destino f01c
@@ -250,6 +256,7 @@ public class ModificarRutas extends JFrame {
 		System.out.println(destino_f01c );
 		System.out.println(nom_archivo_f01c);
 		System.out.println("concatenado " + destino_f01c  );
+		
 		configProps.setProperty("dir.destino.logs.f01c", archivo);
 		configProps.setProperty("dir.destino.logs", ruta_destinoF01C);
 		OutputStream outputStream1 = new FileOutputStream(configFile);

@@ -89,14 +89,11 @@ public class MenuPrincipal {
 		JMenu mnArchivo = new JMenu("Archivo\r\n");
 		menuBar.add(mnArchivo);
 		
-		JMenuItem mntmAbrirArchivo = new JMenuItem("Directorio Origen Logs\r\n");
-		mnArchivo.add(mntmAbrirArchivo);
+		JMenu mnConfigurar = new JMenu("Configurar\r\n");
+		mnArchivo.add(mnConfigurar);
 		
-		JMenu mnDirectorioDestino = new JMenu("Directorio Destino");
-		mnArchivo.add(mnDirectorioDestino);
-		
-		JMenuItem mntmProcesoDiario = new JMenuItem("Proceso Diario");
-		mntmProcesoDiario.addActionListener(new ActionListener() {
+		JMenuItem mntmRutas = new JMenuItem("Rutas Sistema");
+		mntmRutas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				ModificarRutas config = new ModificarRutas();
@@ -105,15 +102,21 @@ public class MenuPrincipal {
 				
 			}
 		});
-		mnDirectorioDestino.add(mntmProcesoDiario);
-		
-		JMenuItem mntmProcesoMensual = new JMenuItem("Proceso Mensual");
-		mnDirectorioDestino.add(mntmProcesoMensual);
-		
-		JMenuItem mntmPersonalizado_1 = new JMenuItem("Personalizado");
-		mnDirectorioDestino.add(mntmPersonalizado_1);
+		mnConfigurar.add(mntmRutas);
 		
 		JMenuItem mntmSalir = new JMenuItem("Salir");
+		mntmSalir.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				System.exit(0);
+			}
+		});
+		mntmSalir.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				
+			}
+		});
 		mnArchivo.add(mntmSalir);
 		
 		JMenu mnCargarListados = new JMenu("Importar Listados Interfaces\r\n");

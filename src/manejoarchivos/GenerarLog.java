@@ -144,23 +144,5 @@ public class GenerarLog extends JFrame {
 		});
 		btnVolverAlMen.setBounds(192, 228, 232, 23);
 		contentPane.add(btnVolverAlMen);
-		
-		final JButton btnJchooser = new JButton("JCHOOSER");
-		btnJchooser.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				
-				JFileChooser jfc = new JFileChooser(FileSystemView.getFileSystemView().getHomeDirectory());
-				jfc.setDialogTitle("Select an image");
-				jfc.setAcceptAllFileFilterUsed(false);			
-				jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-				int returnValue = jfc.showSaveDialog(jfc);
-				if (returnValue == JFileChooser.APPROVE_OPTION) {
-					System.out.println(jfc.getSelectedFile().getPath());
-				}
-			}
-		});
-		btnJchooser.setBounds(333, 104, 91, 23);
-		contentPane.add(btnJchooser);
 	}
 }
