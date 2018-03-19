@@ -80,12 +80,14 @@ public class GenerarLog extends JFrame {
 				
 				dateChooser.getDate();
 		        SimpleDateFormat formateador = new SimpleDateFormat("yyMMdd");
+		        SimpleDateFormat formateador2 = new SimpleDateFormat("yyyy-MM-dd");
 		        
 		        //Obtener los directorios de los archivos.
 		        
 		        
 		        
 				String fecha_proceso = formateador.format(dateChooser.getDate());
+				String fecha_proceso_2 = formateador2.format(dateChooser.getDate());
 				//dir.destino.logs.f01c=C\:\\LOGS\\LOGS_F01C\\LOGS_F01C
 			    //dir.nombre.archivo.f01c=contenedorlogsF01C.txt
 				try {
@@ -102,7 +104,7 @@ public class GenerarLog extends JFrame {
 					Archivos.extraerLogs(listadoF01C, 
 							ruta_archivo_f01c, 
 										dir_archivos_origen, 
-								        fecha_proceso);
+										fecha_proceso, fecha_proceso_2);
 					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block

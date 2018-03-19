@@ -55,7 +55,7 @@ public class ManejoArchivos {
 				//System.out.println(DIR_ARCHIVOS_ORIGEN);
 						
 					//ejecuto el método para llenar el contenedor de logs.
-					leerArchivoPesado(directorio, interfaz, DIR_ARCHIVO_DESTINO_LOGS);
+					leerArchivoPesado(directorio, interfaz, DIR_ARCHIVO_DESTINO_LOGS,FECHA_PROCESO);
 			
 			}// fin while
 			

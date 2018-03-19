@@ -111,7 +111,7 @@ public class Archivos {
 
 	}
 
-	public static void leerArchivoPesado(String nombreArchivo, String interfaz, String NOMBRE_ARCHIVO_DESTINO) throws FileNotFoundException {
+	public static void leerArchivoPesado(String nombreArchivo, String interfaz, String NOMBRE_ARCHIVO_DESTINO, String fecha_proceso) throws FileNotFoundException {
 
 		FileInputStream inputStream = null;
 		Scanner sc = null;
@@ -154,7 +154,7 @@ public class Archivos {
 
 							if ((i + 1) < lines.size() && (linea + 1) < lines.size()) {
 
-								linesjuntas.add(interfaz + "\t" + lines.get(linea).replaceAll(",", "\t").replaceAll(":", "\t")
+								linesjuntas.add(fecha_proceso + "\t" + interfaz + "\t" + lines.get(linea).replaceAll(",", "\t").replaceAll(":", "\t")
 										.replaceAll("@#", "").replaceAll("#@", "") + "\t" + lines.get(linea + 1));
 								// System.out.println(linesjuntas.get(i));
 //								escribirArchivo(NOMBRE_ARCHIVO_DESTINO, linesjuntas.get(i));
@@ -230,7 +230,7 @@ public class Archivos {
 	 * 
 	 */
 	public static void extraerLogs(String DIR_ARCHIVO_LISTADO, String DIR_ARCHIVO_DESTINO_LOGS,
-			String DIR_ARCHIVOS_ORIGEN, String FECHA_PROCESO) {
+			String DIR_ARCHIVOS_ORIGEN, String FECHA_PROCESO, String fecha_proceso_2) {
 		
 		FileInputStream inputListado = null; 
 		Scanner sc = null;
@@ -262,7 +262,7 @@ public class Archivos {
 				//System.out.println(DIR_ARCHIVOS_ORIGEN);
 						
 					//ejecuto el método para llenar el contenedor de logs.
-					leerArchivoPesado(directorio, interfaz, DIR_ARCHIVO_DESTINO_LOGS);
+					leerArchivoPesado(directorio, interfaz, DIR_ARCHIVO_DESTINO_LOGS, fecha_proceso_2);
 				}
 			}// fin while
 			
