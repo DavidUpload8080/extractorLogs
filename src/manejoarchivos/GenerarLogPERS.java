@@ -22,12 +22,16 @@ import com.toedter.calendar.JDateChooser;
 import utileria.Archivos;
 import utileria.Propiedades;
 
-public class GenerarLog extends JFrame {
+public class GenerarLogPERS extends JFrame {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 4854844716897693007L;
+	private static final long serialVersionUID = -7294369759024755330L;
+	/**
+	 * 
+	 */
+	
 	private JPanel contentPane;
 	private JDateChooser dateChooser;
 
@@ -38,8 +42,8 @@ public class GenerarLog extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					GenerarLog frame = new GenerarLog();
-					frame.setTitle("Extracción de Registros LOG");
+					GenerarLogPERS frame = new GenerarLogPERS();
+					frame.setTitle("Extracción de Registros LOGS Personalizado");
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -51,7 +55,7 @@ public class GenerarLog extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public GenerarLog() {
+	public GenerarLogPERS() {
 		
 		setTitle("Extracci\u00F3n de Registros LOG\r\n");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -73,7 +77,7 @@ public class GenerarLog extends JFrame {
 		dateChooser.setBounds(266, 54, 95, 20);
 		contentPane.add(dateChooser);
 		
-		JButton btnNewButton = new JButton("Extraer Registros LOG F01C");
+		JButton btnNewButton = new JButton("Extraer Registros LOGS Personalizado");
 		btnNewButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -86,35 +90,36 @@ public class GenerarLog extends JFrame {
 		        
 		        
 		        
+				
 				//dir.destino.logs.f01c=C\:\\LOGS\\LOGS_F01C\\LOGS_F01C
 			    //dir.nombre.archivo.f01c=contenedorlogsF01C.txt
 				try {
-					String listadoF01C = Propiedades.showProperties("dir.archivo.listado.f01c");
-					String ruta_destino_logs = Propiedades.showProperties("dir.destino.logs.f01c");
-					String nombre_archivoF01C = Propiedades.showProperties("dir.nombre.archivo.f01c");
+					String listadoPERS = Propiedades.showProperties("dir.archivo.listado.pers");
+					String ruta_destino_logs = Propiedades.showProperties("dir.destino.logs.pers");
+					//String nombre_archivoF01C = Propiedades.showProperties("dir.nombre.archivo.mx");
 					String dir_archivos_origen = Propiedades.showProperties("dir.archivo.origen.logs");
 				//concatenar destinoLogs + archivoF01C
 					
-					String ruta_archivo_f01c = null;
-					ruta_archivo_f01c = ruta_destino_logs;
+					String ruta_archivo_pers = null;
+					ruta_archivo_pers = ruta_destino_logs;
 					
 					if(dateChooser.getDate() != null) {
-						
-						String fecha_proceso = formateador.format(dateChooser.getDate());
-						String fecha_proceso_2 = formateador2.format(dateChooser.getDate());
-						
-						//JOptionPane.showMessageDialog(null, fecha_proceso);
-						
-						Archivos.extraerLogs(listadoF01C, 
-								ruta_archivo_f01c, 
-											dir_archivos_origen, 
-											fecha_proceso, fecha_proceso_2);
-						JOptionPane.showMessageDialog(null, "Extracción Terminada Exitosamente...");
+					//JOptionPane.showMessageDialog(null, dateChooser.getDate());
+				
+					String fecha_proceso = formateador.format(dateChooser.getDate());
+					String fecha_proceso_2 = formateador2.format(dateChooser.getDate());
 					
-					}else {
-						JOptionPane.showMessageDialog(null, "Debe Ingresar la Fecha de Proceso...");
-					}
+					Archivos.extraerLogs(listadoPERS, 
+							ruta_archivo_pers, 
+										dir_archivos_origen, 
+										fecha_proceso, fecha_proceso_2);
+					
+					JOptionPane.showMessageDialog(null, "Extracción Terminada Exitosamente...");
+					
+				}else {
+					JOptionPane.showMessageDialog(null, "debe ingresar la fecha de Proceso!");
 						
+				}
 					
 					
 				} catch (Exception e) {
@@ -125,7 +130,7 @@ public class GenerarLog extends JFrame {
 				
 				
 			
-			}//fin evento
+			}
 		});
 		
 		btnNewButton.setBounds(97, 104, 264, 23);

@@ -70,6 +70,14 @@ public class MenuPrincipal {
 		menuPrincipal.getContentPane().add(btnProcesoDiario);
 		
 		JButton btnNewButton_1 = new JButton("Logs Proceso Mensual MX");
+		btnNewButton_1.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				GenerarLogMX generarLogMX = new GenerarLogMX();
+				generarLogMX.setVisible(true);
+				menuPrincipal.setVisible(false);
+			}
+		});
 		btnNewButton_1.setBounds(106, 146, 192, 23);
 		menuPrincipal.getContentPane().add(btnNewButton_1);
 		
@@ -82,6 +90,19 @@ public class MenuPrincipal {
 		lblExtractorDeLogs.setFont(new Font("Tahoma", Font.BOLD, 14));
 		lblExtractorDeLogs.setBounds(96, 11, 183, 45);
 		menuPrincipal.getContentPane().add(lblExtractorDeLogs);
+		
+		JButton btnNewButton = new JButton("Logs Personalizado");
+		btnNewButton.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				
+				GenerarLogPERS generarLogPers = new GenerarLogPERS();
+				generarLogPers.setVisible(true);
+				menuPrincipal.setVisible(false);
+			}
+		});
+		btnNewButton.setBounds(106, 184, 192, 23);
+		menuPrincipal.getContentPane().add(btnNewButton);
 		
 		JMenuBar menuBar = new JMenuBar();
 		menuPrincipal.setJMenuBar(menuBar);
@@ -110,13 +131,7 @@ public class MenuPrincipal {
 				System.exit(0);
 			}
 		});
-		mntmSalir.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				
-				
-			}
-		});
+		
 		mnArchivo.add(mntmSalir);
 		
 		JMenu mnCargarListados = new JMenu("Importar Listados Interfaces\r\n");
@@ -146,9 +161,43 @@ public class MenuPrincipal {
 		mnCargarListados.add(mntmListadoProcesoDiario);
 		
 		JMenuItem mntmProcesoMensual_1 = new JMenuItem("Reportes MX");
+		mntmProcesoMensual_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				menuPrincipal.setVisible(false);
+				
+				ListadoMX listMX;
+				try {
+					listMX = new ListadoMX();
+					
+					listMX.setVisible(true);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+				
+				
+			}
+		});
 		mnCargarListados.add(mntmProcesoMensual_1);
 		
 		JMenuItem mntmPersonalizado = new JMenuItem("Personalizado");
+		mntmPersonalizado.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				menuPrincipal.setVisible(false);
+				
+				ListadoPERS listPERS;
+				try {
+					listPERS = new ListadoPERS();
+					
+					listPERS.setVisible(true);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+			}
+		});
 		mnCargarListados.add(mntmPersonalizado);
 		
 		

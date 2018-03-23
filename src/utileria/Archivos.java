@@ -1,4 +1,6 @@
 package utileria;
+import static org.hamcrest.CoreMatchers.is;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -11,6 +13,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
+
+import javax.swing.JOptionPane;
 
 
 public class Archivos {
@@ -145,7 +149,7 @@ public class Archivos {
 					//abro el archivo y lo defino en true para poder ir apilando cada registro.
 					PrintWriter salida = new PrintWriter(new FileWriter(NOMBRE_ARCHIVO_DESTINO, true));
 
-					if (sum == 2 && null != line ) {
+					if (sum == 2 && null != line && interfaz != "CL01" ) {
 
 						// Junto linea 1 con linea 2
 						int linea = 0;
@@ -153,16 +157,35 @@ public class Archivos {
 						for (int i = 0; i < lines.size(); i++) {
 
 							if ((i + 1) < lines.size() && (linea + 1) < lines.size()) {
-
-								linesjuntas.add(fecha_proceso + "\t" + interfaz + "\t" + lines.get(linea).replaceAll(",", "\t").replaceAll(":", "\t")
-										.replaceAll("@#", "").replaceAll("#@", "") + "\t" + lines.get(linea + 1));
-								// System.out.println(linesjuntas.get(i));
-//								escribirArchivo(NOMBRE_ARCHIVO_DESTINO, linesjuntas.get(i));
 								
+							
+								
+							//cuento los tabs
+							String row = fecha_proceso + "\t" + interfaz + "\t" + lines.get(linea).replaceAll(",", "\t").replaceAll(":", "\t")
+								.replaceAll("@#", "").replaceAll("#@", "") + "\t" + lines.get(linea + 1); 
+							
+								int numTabs = row == null ? 0 : row.length() - row.replace("\t", "").length();
+								int tabsFaltantes = 111 - numTabs;
+								
+								if(tabsFaltantes != 0) {
+								//agrego la cantidad de tabs al final dinámicamente.
+								String str = "\t";
+								
+								String tabFinal = new String(new char[tabsFaltantes]).replace("\0", str);
+//								StringBuilder sb = new StringBuilder(str.length() * tabsFaltantes);
+//							    for (int in = 0; in < tabsFaltantes; i++) {
+//							        sb.append(str); //sumar 1 mas
+//							    }
+							
+								linesjuntas.add(row + tabFinal);
+						}//fin if de tabs
+								else {
+									linesjuntas.add(row);
+								}
 								// inserto el contenido
 								salida.println(linesjuntas.get(i));
 
-//								salida.println();
+
 							}
 
 						}
@@ -176,6 +199,9 @@ public class Archivos {
 						// Escribo el archivo
 
 					} 
+					
+					
+					
 					salida.close(); 
 				
 					
@@ -189,10 +215,27 @@ public class Archivos {
 
 
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
+		}finally {
+			
 		}
 
+	}
+
+	public static int CharCount(String string, String myString)
+	{
+	    int count = 0;
+	    int pos = 0;
+	    do
+	    {
+	        pos = myString.indexOf(string, pos);
+	        if (pos >= 0)
+	        {
+	            count++;
+	        }
+	    } while (pos >= 0);
+	    return count;
 	}
 
 	public static void anexarArchivo(String nombreArchivo) {

@@ -27,14 +27,17 @@ import javax.swing.border.EmptyBorder;
 
 import utileria.Propiedades;
 
-public class ListadoF01C extends JFrame {
+public class ListadoPERS extends JFrame {
 
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 6546916840195465570L;
-	private JPanel contentPane;
-	//private static final String NOMBRE_ARCHIVO_F01C = "C:\\Users\\David\\Desktop\\logs\\listados_interfaces\\listado_F01.txt";
+	private static final long serialVersionUID = -7813361138047963707L;
+	/**
+	 * 
+	 */
+	
+	private JPanel contentPane;	
 	private JTextArea textArea;
 	/**
 	 * Launch the application.
@@ -43,7 +46,7 @@ public class ListadoF01C extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ListadoF01C frame = new ListadoF01C();
+					ListadoPERS frame = new ListadoPERS();
 					frame.setVisible(true);
 					frame.setLocationRelativeTo(null);
 				} catch (Exception e) {
@@ -57,8 +60,8 @@ public class ListadoF01C extends JFrame {
 	 * Create the frame.
 	 * @throws Exception 
 	 */
-	public ListadoF01C() throws Exception {
-		setTitle("Carga de Listado Reporte F01C");
+	public ListadoPERS() throws Exception {
+		setTitle("Carga de Listado Reporte Personalizado");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		setBounds(100, 100, 468, 300);
@@ -84,9 +87,9 @@ public class ListadoF01C extends JFrame {
 		contentPane.add(textArea);
 		
 		//Lleno el textArea con el método leerListado
-		String nombre_archivo_f01c = Propiedades.showProperties("dir.archivo.listado.f01c");
-		System.out.println("listado: " + nombre_archivo_f01c);  
-		leerListado(nombre_archivo_f01c, textArea);
+		String nombre_archivo_pers = Propiedades.showProperties("dir.archivo.listado.pers");
+		System.out.println("listado: " + nombre_archivo_pers);  
+		leerListado(nombre_archivo_pers, textArea);
 	
 		
 		JButton btnNewButton = new JButton("Guardar Cambios\r\n");
@@ -95,10 +98,10 @@ public class ListadoF01C extends JFrame {
 			public void mouseClicked(MouseEvent arg0) {
 				
 				try {
-					String nombre_archivo_f01c = Propiedades.showProperties("dir.archivo.listado.f01c");
+					String nombre_archivo_mx = Propiedades.showProperties("dir.archivo.listado.pers");
 					
 					//actualizo el archivo listado F01C.				
-					cargarListado(nombre_archivo_f01c , textArea.getText(), textArea);
+					cargarListado(nombre_archivo_mx , textArea.getText(), textArea);
 					
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
@@ -116,7 +119,7 @@ public class ListadoF01C extends JFrame {
 		btnNewButton.setBounds(313, 110, 137, 55);
 		contentPane.add(btnNewButton);
 		
-		JLabel lblListadoInterfacesFc = new JLabel("Listado Interfaces F01C");
+		JLabel lblListadoInterfacesFc = new JLabel("Listado Interfaces Personalizado");
 		lblListadoInterfacesFc.setFont(new Font("Tahoma", Font.BOLD, 12));
 		lblListadoInterfacesFc.setBounds(80, 11, 223, 14);
 		contentPane.add(lblListadoInterfacesFc);

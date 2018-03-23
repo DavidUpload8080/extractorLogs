@@ -1,21 +1,11 @@
 package manejoarchivos;
 
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileSystemView;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Font;
-import javax.swing.JTextField;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -25,12 +15,23 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+import javax.swing.filechooser.FileSystemView;
 
 public class ModificarRutas extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 8404160548740925048L;
 	private File configFile = new File("rutas.properties");
 	private Properties configProps;
 	private JPanel contentPane;
@@ -216,56 +217,114 @@ public class ModificarRutas extends JFrame {
 		String nom_archivo_f01c = null;
 		String nom_carpeta = null;
 		
+		String nom_archivo_mx = null;
+		String nom_carpeta_mx = null;
+		
+		String nom_archivo_pers = null;
+		String nom_carpeta_pers = null;
+		
+		
 		System.out.println(ruta_destinoF01C);
 		
+		//nombres f01c ARCHIVO Y CARPETA.
 		nom_archivo_f01c = "\\contenedorlogsF01C.txt";
 		nom_carpeta = "\\LOGS_F01C";
+		
+		//nombres MX ARCHIVO Y CARPETA.
+		nom_archivo_mx = "\\contenedorlogsMX.txt";
+		nom_carpeta_mx = "\\LOGS_MX";
+		
+		//nombres Personalizado ARCHIVO Y CARPETA.
+		nom_archivo_pers = "\\contenedorlogsPERS.txt";
+		nom_carpeta_pers = "\\LOGS_PERS";
+		
+		//destino f01c
 		String destino = ruta_destinoF01C + "\\ContenedorLogSIGIR"+ nom_carpeta;
+		//destino MX
+		String destinoMX = ruta_destinoF01C + "\\ContenedorLogSIGIR"+ nom_carpeta_mx;
+		//destino Personalizado
+		String destinoPer = ruta_destinoF01C + "\\ContenedorLogSIGIR"+ nom_carpeta_pers;
+		
 		String archivo = ruta_destinoF01C +"\\ContenedorLogSIGIR"+ nom_carpeta + nom_archivo_f01c;
+		String archivoMX = ruta_destinoF01C +"\\ContenedorLogSIGIR"+ nom_carpeta_mx + nom_archivo_mx;
+		String archivoPERS = ruta_destinoF01C +"\\ContenedorLogSIGIR"+ nom_carpeta_pers + nom_archivo_pers;
 		
 		//CREO EL DIRECTORIO
 		System.out.println("ruta archivo: " + ruta_destinoF01C + "\\ContenedorLogSIGIR"+ nom_carpeta);
+		System.out.println("ruta archivo: " + ruta_destinoF01C + "\\ContenedorLogSIGIR"+ nom_carpeta_mx);
+		System.out.println("ruta archivo: " + ruta_destinoF01C + "\\ContenedorLogSIGIR"+ nom_carpeta_pers);
 		
 		File destino_f01c = new File(destino);
-		
-		
+		File destino_MX = new File(destinoMX);
+		File destino_PERS = new File(destinoPer);
+
+
 		//ARCHIVO F01C
 		File archivo_destino_f01c = new File(archivo);
+		File archivo_destino_MX = new File(archivoMX);
+		File archivo_destino_PERS = new File(archivoPERS);
 		
 		//si no existe el directorio que lo cree.
 		if(!destino_f01c.exists()) {
 			destino_f01c.mkdirs();
 		}
+		if(!destino_MX.exists()) {
+			destino_MX.mkdirs();
+		}
+		if(!destino_PERS.exists()) {
+			destino_PERS.mkdirs();
+		}
         
+		BufferedWriter bw1;
 		BufferedWriter bw2;
+		BufferedWriter bw3;
 
+		
+			
+		
+		
 		//si no existe creo el archivo.
         if(!archivo_destino_f01c.exists()) {
         	
            	System.out.println(archivo);
-            bw2 = new BufferedWriter(new FileWriter(archivo));
+            bw1 = new BufferedWriter(new FileWriter(archivo));
+           // bw.write("El directorio y archivo .txt, ya estaba creado.");
+            bw1.close();
+            
+        }
+        if(!archivo_destino_MX.exists()) {
+        	
+           	System.out.println(archivoMX);
+            bw2 = new BufferedWriter(new FileWriter(archivoMX));
            // bw.write("El directorio y archivo .txt, ya estaba creado.");
             bw2.close();
             
         }
+        if(!archivo_destino_PERS.exists()) {
+ 	
+	    	System.out.println(archivoPERS);
+	    	bw3 = new BufferedWriter(new FileWriter(archivoPERS));
+	    	// bw.write("El directorio y archivo .txt, ya estaba creado.");
+	    	bw3.close();
+     
+        }
            
-        //modifico el directorio donde está el log destino f01c
-        //configProps.setProperty("dir.destino.logs.f01c", archivo_destino_f01c + nom_archivo_f01c);
-       
-		System.out.println("Contenido Propiedad: " + configProps.getProperty("dir.destino.logs.f01c"));
-		System.out.println(destino_f01c );
-		System.out.println(nom_archivo_f01c);
-		System.out.println("concatenado " + destino_f01c  );
-		
+        //modifico el directorio donde está el log destino f01c        
 		configProps.setProperty("dir.destino.logs.f01c", archivo);
+		configProps.setProperty("dir.destino.logs.mx", archivoMX);
+		configProps.setProperty("dir.destino.logs.pers", archivoPERS);		
 		configProps.setProperty("dir.destino.logs", ruta_destinoF01C);
+		
 		OutputStream outputStream1 = new FileOutputStream(configFile);
 		configProps.store(outputStream1, "logs destino setttings");
 		
 		System.out.println("Contenido Propiedad: " + configProps.getProperty("dir.destino.logs.f01c"));
+		System.out.println("Contenido Propiedad: " + configProps.getProperty("dir.destino.logs.mx"));
+		System.out.println("Contenido Propiedad: " + configProps.getProperty("dir.destino.logs.pers"));
 		outputStream1.close();
 		
-		
+	//	JOptionPane.showMessageDialog(null, "Rutas y carpetas creadas!");
+
 	}
 	
 }
