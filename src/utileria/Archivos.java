@@ -1,6 +1,4 @@
 package utileria;
-import static org.hamcrest.CoreMatchers.is;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -14,16 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-import javax.swing.JOptionPane;
-
 
 public class Archivos {
-	
-//	private static final String NOMBRE_ARCHIVO_DESTINO = "C:\\Users\\David\\Desktop\\logs\\contenedorlogs.txt";
-//	private static  final String DIR_ARCHIVOS_ORIGEN = "C:\\Users\\David\\Desktop\\logs\\ERR_CL01171127.TCL.LOG";
-
-	
-	
 	
 	
 	public static void crearArchivo(String nombreArchivo) {
@@ -86,8 +76,7 @@ public class Archivos {
 				
 				// llena todos los registros en memoria.
 				lines.add(lectura);
-
-				// System.out.println(lines);
+				
 			}
 
 			entrada.close();
@@ -104,7 +93,7 @@ public class Archivos {
 
 			if ((i + 1) < lines.size() && (sum + 1) < lines.size()) {
 
-				// System.out.println(" Linea: [" + i + "] " + lines.get(i));
+				
 				linesjuntas.add(lines.get(sum).replaceAll(",", "\t").replaceAll(":", "\t").replaceAll("@#", "")
 						.replaceAll("#@", "") + "\t" + lines.get(sum + 1));
 				System.out.println(linesjuntas.get(i));
@@ -129,12 +118,9 @@ public class Archivos {
 			if(file.exists()) {
 				inputStream = new FileInputStream(nombreArchivo);
 				
-//				BufferedWriter bw = new BufferedWriter(new FileWriter(NOMBRE_ARCHIVO_DESTINO));
-//				bw.write("");
-//				bw.close();
-//				System.out.println(inputStream);
+
 				sc = new Scanner(inputStream, "UTF-8");
-//				System.out.println("scanner" +sc);
+
 				int sum = 0;
 				
 				// recorro cada línea sin guardar los registros en memoria.
@@ -144,7 +130,6 @@ public class Archivos {
 					lines.add(line);
 					System.out.println(line);
 					sum++;
-					
 					
 					//abro el archivo y lo defino en true para poder ir apilando cada registro.
 					PrintWriter salida = new PrintWriter(new FileWriter(NOMBRE_ARCHIVO_DESTINO, true));
@@ -172,10 +157,7 @@ public class Archivos {
 								String str = "\t";
 								
 								String tabFinal = new String(new char[tabsFaltantes]).replace("\0", str);
-//								StringBuilder sb = new StringBuilder(str.length() * tabsFaltantes);
-//							    for (int in = 0; in < tabsFaltantes; i++) {
-//							        sb.append(str); //sumar 1 mas
-//							    }
+
 							
 								linesjuntas.add(row + tabFinal);
 						}//fin if de tabs
@@ -195,17 +177,12 @@ public class Archivos {
 						linesjuntas.clear();
 						sum = 0;
 						
-						// limpio el array linesjuntas
-						// Escribo el archivo
+				
 
 					} 
 					
-					
-					
 					salida.close(); 
 				
-					
-//					System.out.println("TerminÃ³ de escribir");
 
 				}//fin while
 			}//fin if
