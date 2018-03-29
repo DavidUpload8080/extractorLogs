@@ -7,14 +7,10 @@ import java.io.BufferedWriter;
 import java.io.FileInputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class ManejoArchivos {
 
-//	private static final String NOMBRE_ARCHIVO = "/home/david/Escritorio/logs/logejemplo2.txt";
-	//private static  String DIR_ARCHIVOS_ORIGEN = "C:\\Users\\David\\Desktop\\logs\\ERR_OP07171127.TCL.LOG";
 	private static  String DIR_ARCHIVOS_ORIGEN = "C:\\Users\\David\\Desktop\\logs";
 	private static final String DIR_ARCHIVO_LISTADO_F01C = "C:\\Users\\David\\Desktop\\logs\\listado_F01.txt";
 	private static final String DIR_ARCHIVO_DESTINO_LOGS = "C:\\Users\\David\\Desktop\\logs\\contenedorlogs.txt";
@@ -36,8 +32,6 @@ public class ManejoArchivos {
 		try {
 			
 			inputListado = new FileInputStream(DIR_ARCHIVO_LISTADO_F01C);
-			
-			List<String> listado = new ArrayList<String>();
 			
 			sc = new Scanner(inputListado, "UTF-8");
 			

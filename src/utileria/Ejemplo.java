@@ -1,9 +1,5 @@
 package utileria;
 
-import java.io.File;
-
-import javax.swing.filechooser.FileSystemView;
-
 public class Ejemplo {
 
 	

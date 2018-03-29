@@ -5,41 +5,25 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.Properties;
 
 public class Propiedades {
-
 	
-	private static final String destino_logs = "dir.destino.logs.f01c";
-	//private static String configFilePath = "/rutas.properties";
 	public static File configFile = new File("rutas.properties");
 	public static  Properties configProps;
 	
-//	public static  = null;
+
 	public Propiedades() {}
 	
 	
 	public static String showProperties(String clave) throws Exception {
-	
-	  
-	   
 	   
 	   String valor =  loadProperties().getProperty(clave);
-	   
-	   
-	 
-	   //System.out.println("destino: "+ destino);
-	  
 	   return valor;
 	}
 	
 	public static Properties loadProperties() throws IOException {
 		Properties defaultProps = new Properties();
-		// sets default properties
-		//defaultProps.setProperty("dir.archivo.origen.logs", "www.codejava.net");
-		//defaultProps.setProperty("dir.destino.logs.f01c", "");
-		
 		configProps = new Properties(defaultProps);
 		
 		// loads properties from file
@@ -74,9 +58,9 @@ public class Propiedades {
 			
 			p.load(is);
 			//obtengo la unidad del disco.
-			String unidad = getUnidadDisco();
+			
 			//rutas de destino.
-			String destino_f01c = unidad + "logs\\contenedoreslogs\\contenedorlogsF01C.txt";
+			
 			is.close();
 			
 			FileOutputStream out = new FileOutputStream("rutas.properties");

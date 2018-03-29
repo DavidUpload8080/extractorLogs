@@ -15,6 +15,7 @@ public class PoolConexionesSqlServer {
 		
 		ds.setDriverClassName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
 		ds.setUrl("jdbc:sqlserver://localhost:1433;databaseName=logsDB;integratedSecurity=true;");
+//		ds.setUrl("jdbc:sqlserver://localhost\\WXP-;databaseName=logsDB;integratedSecurity=true;");
 		
 		//defino el tamaño de las conexiones iniciales.
 		ds.setInitialSize(5);

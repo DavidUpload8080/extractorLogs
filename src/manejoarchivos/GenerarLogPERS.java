@@ -9,13 +9,11 @@ import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileSystemView;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -85,7 +83,7 @@ public class GenerarLogPERS extends JFrame {
 				dateChooser.getDate();
 		        SimpleDateFormat formateador = new SimpleDateFormat("yyMMdd");
 		        SimpleDateFormat formateador2 = new SimpleDateFormat("yyyy-MM-dd");
-		        
+		        String tabla = "contenedorlogsPers";
 		        //Obtener los directorios de los archivos.
 		        
 		        
@@ -112,7 +110,7 @@ public class GenerarLogPERS extends JFrame {
 					Archivos.extraerLogs(listadoPERS, 
 							ruta_archivo_pers, 
 										dir_archivos_origen, 
-										fecha_proceso, fecha_proceso_2);
+										fecha_proceso, fecha_proceso_2, tabla);
 					
 					JOptionPane.showMessageDialog(null, "Extracción Terminada Exitosamente...");
 					

@@ -104,6 +104,19 @@ public class MenuPrincipal {
 		btnNewButton.setBounds(106, 184, 192, 23);
 		menuPrincipal.getContentPane().add(btnNewButton);
 		
+		JButton btnTest = new JButton("Test");
+		btnTest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				
+				TestConnection test = new TestConnection();
+				test.setVisible(true);
+				menuPrincipal.setVisible(false);
+				
+			}
+		});
+		btnTest.setBounds(116, 218, 91, 23);
+		menuPrincipal.getContentPane().add(btnTest);
+		
 		JMenuBar menuBar = new JMenuBar();
 		menuPrincipal.setJMenuBar(menuBar);
 		

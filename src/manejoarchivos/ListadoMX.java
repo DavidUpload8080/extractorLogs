@@ -8,12 +8,9 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 
@@ -22,6 +19,7 @@ import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.border.EmptyBorder;
 
@@ -84,7 +82,11 @@ public class ListadoMX extends JFrame {
 		
 		textArea = new JTextArea();
 		textArea.setBounds(10, 36, 293, 226);
-		contentPane.add(textArea);
+
+		JScrollPane scroll = new JScrollPane (textArea);
+		scroll.setBounds(10, 36, 293, 226);
+		contentPane.add(scroll);
+		
 		
 		//Lleno el textArea con el método leerListado
 		String nombre_archivo_f01c = Propiedades.showProperties("dir.archivo.listado.mx");

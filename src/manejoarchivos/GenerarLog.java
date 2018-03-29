@@ -9,13 +9,11 @@ import java.awt.event.MouseEvent;
 import java.text.SimpleDateFormat;
 
 import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.filechooser.FileSystemView;
 
 import com.toedter.calendar.JDateChooser;
 
@@ -91,7 +89,7 @@ public class GenerarLog extends JFrame {
 				try {
 					String listadoF01C = Propiedades.showProperties("dir.archivo.listado.f01c");
 					String ruta_destino_logs = Propiedades.showProperties("dir.destino.logs.f01c");
-					String nombre_archivoF01C = Propiedades.showProperties("dir.nombre.archivo.f01c");
+					
 					String dir_archivos_origen = Propiedades.showProperties("dir.archivo.origen.logs");
 				//concatenar destinoLogs + archivoF01C
 					
@@ -102,13 +100,13 @@ public class GenerarLog extends JFrame {
 						
 						String fecha_proceso = formateador.format(dateChooser.getDate());
 						String fecha_proceso_2 = formateador2.format(dateChooser.getDate());
-						
-						//JOptionPane.showMessageDialog(null, fecha_proceso);
+						String tabla = "contenedorlogsF01C";
+
 						
 						Archivos.extraerLogs(listadoF01C, 
 								ruta_archivo_f01c, 
 											dir_archivos_origen, 
-											fecha_proceso, fecha_proceso_2);
+											fecha_proceso, fecha_proceso_2,tabla);
 						JOptionPane.showMessageDialog(null, "Extracción Terminada Exitosamente...");
 					
 					}else {
@@ -141,7 +139,7 @@ public class GenerarLog extends JFrame {
 				
 				MenuPrincipal menu = new MenuPrincipal();
 				menu.setVisible(true);
-//				GenerarLog frame = new GenerarLog();
+//				
 				
 				setVisible(false);
 				

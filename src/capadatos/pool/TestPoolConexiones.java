@@ -15,6 +15,7 @@ public class TestPoolConexiones {
 		Connection conn = null;
 		Connection connDB = null;
 		PreparedStatement stmt = null;
+		PreparedStatement stmtVaciarTabla = null;
 		ResultSet rs = null;
 		String ruta_destino_logs = Propiedades.showProperties("dir.destino.logs.f01c");
 		
@@ -50,7 +51,7 @@ public class TestPoolConexiones {
 						System.out.println("Conexión con base de datos"  + connDB);
 						
 						DatabaseMetaData metaTables = connDB.getMetaData();
-						String tabla = "contenedorlogsF01Css";
+						String tabla = "contenedorlogsF01C";
 						ResultSet rsTables = metaTables.getTables(null, null, tabla, null);
 						
 						
@@ -59,15 +60,21 @@ public class TestPoolConexiones {
 							
 						while(rsTables.next() ) {
 							i++;
-							System.out.println("--- Si existe la tabla ---");
-
-									stmt = connDB.prepareStatement(sql);
+							System.out.println("--- Inicio de Llenado de Tabla ---");
 									
-									int result = stmt.executeUpdate();
-									System.out.println("Resultado: " + result);
+							//vacío la tabla destino
+							stmtVaciarTabla =connDB.prepareStatement("TRUNCATE TABLE " + tabla); 
+							int resultadoVaciar = stmtVaciarTabla.executeUpdate();
+							System.out.println("Resultado Vaciar Tabla: " + resultadoVaciar);
 									
-								break;
-							}
+							//ejecuto el bulk los nuevos registros.
+							stmt = connDB.prepareStatement(sql);									
+							int result = stmt.executeUpdate();
+							System.out.println("Resultado: " + result);
+								
+							//una vez encontrada la tabla y llenada, que salga del ciclo while.
+							break;
+						}
 							if(i == 0) {
 								System.out.println("la tabla no existe");
 								
@@ -189,24 +196,26 @@ public class TestPoolConexiones {
 								System.out.println("Resultado: " + result);
 								System.out.println("--- **** tabla creada ****---");
 								
+								//ejecuto el bulk los nuevos registros.
+								stmt = connDB.prepareStatement(sql);									
+								int resultBulk = stmt.executeUpdate();
+								System.out.println("Resultado: " + resultBulk);
+								System.out.println("--- **** BULK ok ****---");
 							}
 						}
 						rsTables.close();
 					}//fin if tables
 					
 						
-					}
-				
-			
-			rs.close();				
-			
-			conn.close();
-			connDB.close();
+				}//fin while
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}finally {
 			
+			rs.close();
+			conn.close();
+			connDB.close();
 		}
 		
 		
