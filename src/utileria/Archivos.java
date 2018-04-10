@@ -327,46 +327,54 @@ public class Archivos {
 			
 			System.out.println("Estado Conexión B " + conn );
 			
-			DatabaseMetaData meta = conn.getMetaData();  
+			DatabaseMetaData meta = conn.getMetaData();
+			System.out.println("Meta: " + meta);
 			rs = meta.getCatalogs(); // guardo los nombres de las bases de datos en el rs.
-			
+			System.out.println("Pasoo al array");
 			 ArrayList<String> listDB = new ArrayList<String>();
 			 ArrayList<String> listTB = new ArrayList<String>();
 			
-			//Cheking if table exist
-			connDB = PoolConexionesSqlServer.getConexion();				
-			System.out.println("Conexión con base de datos"  + connDB);				
-			DatabaseMetaData metaTables = connDB.getMetaData();
-			ResultSet rsTables = metaTables.getTables(null, null, tabla, null);
 			 
 			//check if exist data base or create if not exist and table.
-			while(rs.next()) {
-					
-				String listado = rs.getString("TABLE_CAT");				
-				listDB.add(listado);	
-			}			
+				while(rs.next()) {
+						
+					String listado = rs.getString("TABLE_CAT");				
+					listDB.add(listado);	
+				}			
+				
+				System.out.println("base de datos: " + listDB.contains("logsDB"));
+			 
+			//Cheking if table exist
+//			connDB = PoolConexionesSqlServer.getConexion();				
+//			System.out.println("Conexión con base de datos"  + connDB);				
+//			DatabaseMetaData metaTables = connDB.getMetaData();
+//			ResultSet rsTables = metaTables.getTables(null, null, tabla, null);
+//			 
 			
-			System.out.println("base de datos: " + listDB.contains("logsDB"));
 			
 			if(listDB.contains("logsDB") == false) {
 				
+				System.out.println("base de d creada: " + listDB.contains("logsDB") );
 				//Código para crear la tabla 
 				System.out.println("Entró a la creación de la base de datos ");
-				connDB2 = PoolConexionesSqlServer.getConexionCheck();
-				stmtCrearTabla = connDB2.prepareStatement("CREATE DATABASE logsDB");				
+				
+				Connection conn1 = PoolConexionesSqlServer.getConexionCheck();
+				stmtCrearTabla = conn1.prepareStatement("CREATE DATABASE logsDB");				
 				System.out.println("CREANDO LA BASE DE DATOS " + stmtCrearTabla );				
-				stmtCrearTabla.executeUpdate();
+				
+//				System.out.println(stmtCrearTabla.executeUpdate());
+				
+				System.out.println("Resultado create database: " + stmtCrearTabla.executeUpdate());
 				
 				//creo la tabla sólo si esta no existe.
-				crearTabla(tabla);
-				
+				crearTabla(tabla);				
 				//creo el bulk
 				bulkTabla(tabla, archivoLog);
 				
 			}// Fin Checking DataBase logsDB
 			
-			else {
-				crearTabla(tabla);
+			else  {
+				crearTabla(tabla );
 				bulkTabla(tabla, archivoLog);
 			}//fin else final
 			
@@ -375,9 +383,9 @@ public class Archivos {
 			e.printStackTrace();
 		}finally {
 			
-			rs.close();
+			rs.close();			
 			conn.close();
-			connDB.close();
+			
 		}
 		
 		
@@ -387,15 +395,18 @@ public class Archivos {
 		
 		Connection conn= null;		
 		PreparedStatement stmt = null;	
-		
+		DatabaseMetaData metaTables = null;
+		ResultSet rsTables = null;
 		//Cheking if table exist
 		try {
 			conn = PoolConexionesSqlServer.getConexion();
-			System.out.println("Conexión con base de datos"  + conn);				
-			DatabaseMetaData metaTables = conn.getMetaData();
-			ResultSet rsTables = metaTables.getTables(null, null, tabla, null);
+			System.out.println("Conexión con base de datos"  + conn);	
+			
+			metaTables = conn.getMetaData();
+			rsTables = metaTables.getTables(null, null, tabla, null);
 			
 			if(rsTables.next() == false) {
+				
 				String crearTabla = "CREATE TABLE " + tabla  
 						+ " ( " 
 						+ "[FECHA_PROCESO] [varchar](max) NULL,"
@@ -526,20 +537,30 @@ public class Archivos {
 	}//fin método crearTabla()
 
 	
-	public static void bulkTabla(String tabla, String archivoLog) {
+	public static void bulkTabla(String tabla, String archivoLog) throws SQLException {
 		
 		Connection conn= null;		
-		PreparedStatement stmt = null;	
+		PreparedStatement stmt = null;
+		ResultSet rsTables = null;
 		
 			try {
 				conn = PoolConexionesSqlServer.getConexion();
 			
 				System.out.println("Conexión con base de datos"  + conn);				
 				DatabaseMetaData metaTables = conn.getMetaData();
-				ResultSet rsTables = metaTables.getTables(null, null, tabla, null);
+				rsTables = metaTables.getTables(null, null, tabla, null);
 				
-				if(rsTables.next() == true) {
-			
+//				System.out.println("tabla existente pal bulk, antes del if " + rsTables.next());
+//				System.out.println("tabla existente pal bulk, antes del if 2" + rsTables.next());
+				System.out.println(" archivo log " + archivoLog );
+				
+				System.out.println(" Tabla existente: " + tabla);
+				
+				if(rsTables.next()) {
+					
+//					rsTables.close();//cierro este rs para que no de error null pointer exception	
+//					System.out.println("dentro del if  bulk " + rsTables.next());
+					tabla = "logsDB.." + tabla;
 					//Creo el script sql bulk
 					String sql = "BULK INSERT " + tabla + " FROM "
 								+ "'" + archivoLog +"'" 
@@ -551,21 +572,28 @@ public class Archivos {
 				System.out.println("--- Inicio de Llenado de Tabla ---");
 									
 				//vacío la tabla destino
-				stmt =conn.prepareStatement("TRUNCATE TABLE " + tabla); 
+				stmt = conn.prepareStatement("TRUNCATE TABLE " + tabla); 
 				int resultadoVaciar = stmt.executeUpdate();
 				System.out.println("Resultado Vaciar Tabla: " + resultadoVaciar);
 									
 				//ejecuto el bulk los nuevos registros.
-				stmt = conn.prepareStatement(sql);									
+				stmt = conn.prepareStatement(sql);
+			
 				int result = stmt.executeUpdate();
 				System.out.println("Resultado: " + result);
-		
+				
 			}//fin if
+				else {
+					System.out.println("la tabla no existe");
+				}
 				
 			} catch (SQLException e) {
 				
 				e.printStackTrace();
+			}finally {
+				rsTables.close();
 			}
+			rsTables.close();
 	}// fin método bulk
 
 }

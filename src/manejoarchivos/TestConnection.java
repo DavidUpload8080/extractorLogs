@@ -65,8 +65,8 @@ public class TestConnection extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				
 				try {
-				DataSource test = PoolConexionesSqlServer.TestConnection();
-				Connection te2st = PoolConexionesSqlServer.getConexion();
+				//Connection test = PoolConexionesSqlServer.getConexion();
+				Connection te2st = PoolConexionesSqlServer.getConexionCheck();
 //				JOptionPane.showConfirmDialog(null, test);
 //				JOptionPane.showConfirmDialog(null, te2st);
 				JOptionPane.showConfirmDialog(null, "Conexión Exitosa!");
