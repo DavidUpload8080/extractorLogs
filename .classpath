@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/David/Documents/extractorArchivos"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="src" path="src">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="ManejoArchivos/x64"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="lib" path="C:/Users/David/Documents/spring STS 3.9.2/Jcalendar/lib/jcalendar-1.4.jar"/>
+	<classpathentry kind="lib" path="C:/Users/David/Documents/spring STS 3.9.2/Jcalendar/lib/jgoodies-common-1.2.0.jar"/>
+	<classpathentry kind="lib" path="C:/Users/David/Documents/spring STS 3.9.2/Jcalendar/lib/jgoodies-looks-2.4.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/David/Documents/spring STS 3.9.2/Jcalendar/lib/junit-4.6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/David/Documents/Librerías pool Conexiones/commons-pool2-2.4.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/David/Documents/Librerías pool Conexiones/commons-logging-1.2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/David/Documents/Librerías pool Conexiones/commons-dbcp2-2.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/David/Documents/Librerías pool Conexiones/commons-collections4-4.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/David/Documents/Librerías pool Conexiones/sqljdbc_6.2/enu/mssql-jdbc-6.2.2.jre7.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="C:/Users/David/Documents/extractorArchivos"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
